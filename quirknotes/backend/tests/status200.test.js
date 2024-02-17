@@ -24,6 +24,18 @@ const postNoteBody = await postNoteRes.json();
 
 expect(postNoteRes.status).toBe(200);
 expect(postNoteBody.response).toBe("Note added succesfully.");
+
+const deleteNoteRes = await fetch(`${SERVER_URL}/deleteNote/${postNoteBody.insertedId}`, {
+method: "DELETE",
+headers: {
+    "Content-Type": "application/json",
+},
+});
+
+const deleteNoteBody = await deleteNoteRes.json();
+
+expect(deleteNoteRes.status).toBe(200);
+expect(deleteNoteBody.response).toBe(`Document with ID ${postNoteBody.insertedId} deleted.`);
 });
 
 test("/getAllNotes - Return list of zero notes for getAllNotes", async () => {
